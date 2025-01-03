@@ -16,4 +16,5 @@ execute_process(
 find_package(nanobind CONFIG REQUIRED)
 
 nanobind_add_module(pyhpx src/main.cpp)
+target_include_directories(pyhpx PRIVATE include)
 target_link_libraries(pyhpx PRIVATE HPX::hpx HPX::wrap_main HPX::iostreams_component)

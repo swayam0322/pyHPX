@@ -1,3 +1,4 @@
-rm -rf build
-cmake -S . -B build 
-cmake --build build
+cd /home/sam/pyHPX/build
+rm -rf *
+cmake ..
+make

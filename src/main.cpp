@@ -1,12 +1,18 @@
 #include <nanobind/nanobind.h>
-#include <hpx/hpx_main.hpp>
-#include <hpx/iostream.hpp>
+#include "defs.hpp"
 
-int main() {
-    // Say hello to the world!
-    hpx::cout << "Hello World!\n" << std::flush;
+std::uint64_t fibonacci_hpx(std::uint64_t n) {
+  if (n < 2)
+    return n;
+
+  hpx::future<std::uint64_t> n1 = hpx::async(fibonacci_hpx, n - 1);
+  hpx::future<std::uint64_t> n2 = hpx::async(fibonacci_hpx, n - 2);
+
+  return n1.get() + n2.get(); // wait for the Futures to return their values
 }
 
 NB_MODULE(pyhpx, m) {
-    m.def("main", &main);
+    m.def("start", &start);
+    m.def("stop", &stop);
+    m.def("run", &fibonacci_hpx);
 }
